@@ -3,7 +3,7 @@ const express = require("express");
 const http = require("http");
 
 const { Server } = require("socket.io");
-const ACTIONS = require("../client/src/Actions");
+const ACTIONS = require("./Actions.js");
 
 const app = express();
 
@@ -43,7 +43,7 @@ io.on("connection", (socket) => {
   socket.on(ACTIONS.CODE_CHANGE, ({roomId, code}) => {
     socket.in(roomId).emit(ACTIONS.CODE_CHANGE, {code});
   });
-  
+
   socket.on(ACTIONS.SYNC_CODE, ({socketId, code}) => {
     io.to(socketId).emit(ACTIONS.CODE_CHANGE, { code });
   })
